@@ -38,16 +38,20 @@ class Karatavas {
     console.log("Sākam jaunu spēli!");
     this.statuss = Karatavas.STATUSS_JAUNS;
     this.jaunsProgress(0);
+    this.progress = 0;
     this.jaunsUzdevums();
     this.atjaunotRebusu();
     console.log("Vēl ir jāsaliek burtu pogas!");
   }
-  jaunsProgress(limenis) {
+  set progress(limenis) {
     this._progress = limenis;
     console.log("Jauns progress:", this._progress);
     if (this.konteiners) {
       this.divProgress.innerHTML = "Progress: " + this._progress;
     }
+  }
+  get progress() {
+    return this._progress;
   }
   jaunsUzdevums() {
     this.uzdevums = "UZDEVUMS";
