@@ -92,8 +92,13 @@ class Karatavas {
     return this._progress;
   }
   jaunsUzdevums() {
-    this.uzdevums = "UZDEVUMS";
     this.divUzdevums.setAttribute("class", "uzdevums");
+    if (!varduSaraksts) {
+        console.error("Vārdu saraksts nav ielādēts!");
+        this.uzdevums = "UZDEVUMS";
+        return this.uzdevums;
+      }
+    this.uzdevums = varduSaraksts[Math.floor(Math.random() * varduSaraksts.length)];
     console.log("Jauns uzdevums: ", this.uzdevums);
     return this.uzdevums;
   }
