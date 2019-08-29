@@ -1,21 +1,37 @@
 class Karatavas {
   constructor(id) {
-    this.konteineris = document.getElementById(id);
-    console.log("this.konteineris=", this.konteineris); 
-    if (this.konteineris) {
-      this.konteineris.innerHTML = "Te būs spēle";
+    this.konteiners = document.getElementById(id);
+    if (this.konteiners) {
+      this.konteiners.innerHTML = "Te būs spēle";
+
+      this.divProgress = document.createElement("div");
+      this.divProgress.setAttribute("class", "progress");
+      this.divProgress.innerHTML = "Progress";
+      this.konteiners.appendChild(this.divProgress);
+
+      this.divRikjosla = document.createElement("div");
+      this.divRikjosla.setAttribute("class", "rikjosla");
+      this.divRikjosla.innerHTML = "Pogas";
+      this.konteiners.appendChild(this.divRikjosla);
+
+      this.divUzdevums = document.createElement("div");
+      this.divUzdevums.setAttribute("class", "uzdevums");
+      this.divUzdevums.innerHTML = "Uzdevums";
+      this.konteiners.appendChild(this.divUzdevums);
+
+      this.divBurti = document.createElement("div");
+      this.divBurti.setAttribute("class", "burti");
+      this.divBurti.innerHTML = "Burti";
+      this.konteiners.appendChild(this.divBurti);
     }
     this.statuss = Karatavas.STATUSS_NEINICIALIZETS;
   }
   novakt() {
-    let statuss = 123;
-    console.log("statuss=", statuss);
-    console.log("this.statuss=", this.statuss);
     if (this.statuss === Karatavas.STATUSS_NOVAKTS) return;
-    if (this.konteineris) {
-      this.konteineris.innerHTML = "";
+    if (this.konteiners) {
+      this.konteiners.innerHTML = "";
     }
-    delete this.konteineris;
+    delete this.konteiners;
     this.statuss = Karatavas.STATUSS_NOVAKTS;
   }
 }

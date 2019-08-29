@@ -1,3 +1,16 @@
 body {
+  /* visi body elementi (ir tikai viens) */
   background-color: #99f;
+}
+
+#konteiners {
+  /* elements ar id=konteiners */
+  background-color: #fff;
+  border: 10px solid #88b; 
+}
+
+#konteiners div {
+  /* visi div elementi, kas ir iekš elementa ar id=konteiners */
+  background-color: #ddd;
+  border: 10px solid #b88; 
 }
