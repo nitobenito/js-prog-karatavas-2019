@@ -1,10 +1,41 @@
+// Klase DivElements ir demonstrācija, kā atvieglot sev darbu ar DOM objektiem
+// Šis DivElements objekts "aptin" īsto DOM elementu, ko piefiksējam this.div propertijā,
+// un ļauj mums ieviest savas metodes, kas vainagosies ar īsāku kodu.
+// Taču šādu "palīgklasi" nevajadzētu iepazīstināt jau pašā sākumā, tas ir kas
+// tāds, ko skolēnam vajadzētu veidot pašam.
+class DivElements {
+  constructor(parent) {
+    this.parent = parent;
+    this.div = document.createElement("div");
+    this.parent.appendChild(this.div);
+  }
+  saturs(teksts) {
+    this.div.innerHTML = teksts;
+  }
+  cssKlase(klase) {
+    this.div.setAttribute("class", klase);
+  }
+  jaunsElements(tips) {
+    let elements = document.createElement(tips);
+    this.div.appendChild(elements);
+    return elements;
+  }
+  neredzams() {
+    this.div.style.display = "none";
+  }
+  redzams() {
+    this.div.style.display = "block";
+  }
+}
+
 class Karatavas {
   constructor(id) {
     this.konteiners = document.getElementById(id);
     if (this.konteiners) {
-      this.divProgress = document.createElement("div");
-      this.divProgress.setAttribute("class", "progress");
-      this.konteiners.appendChild(this.divProgress);
+      // Te ir piemērs, kā izmanto pašu veidoto DivElements objektu nevis DOM elementu pa tiešo
+      // Nomainīju nosaukumu no divProgress uz elmProgress, lai nejuktu ar citiem objekta this.div* propertijiem.
+      this.elmProgress = new DivElements(this.konteiners);
+      this.elmProgress.cssKlase("progress");
 
       this.divRikjosla = document.createElement("div");
       this.divRikjosla.setAttribute("class", "rikjosla");
@@ -57,7 +88,7 @@ class Karatavas {
         this.divBurti.appendChild(burtaPoga);
       }
       this.divUzdevums.style.display = "block"; // Padaram uzdevuma logu redzamu
-      this.divProgress.style.display = "block"; // Padaram progresa logu redzamu
+      this.elmProgress.redzams(); // Padaram progresa logu redzamu
     }
   }
   set progress(limenis) {
@@ -78,8 +109,7 @@ class Karatavas {
         if (!this.imgProgresaBilde) {
             // Pievienojam <img> elementu, kas attēlos bildītes
             // Piezīme: pirmo reizi, kad uzstādīs jaunu līmeni, bildīte ielādēsies tikai tad. Tā nav optimāla lietotāja pieredze, tāpēc vēlams bildītes ielādēt pārlūkprogrammas atmiņā jau laicīgi.
-            this.imgProgresaBilde = document.createElement("img");
-            this.divProgress.appendChild(this.imgProgresaBilde);
+            this.imgProgresaBilde = this.elmProgress.jaunsElements("img");
           }  
         this.imgProgresaBilde.setAttribute("src", progresaBildes[limenis]);
       }
