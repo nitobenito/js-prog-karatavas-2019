@@ -64,7 +64,25 @@ class Karatavas {
     this._progress = limenis;
     console.log("Jauns progress:", this._progress);
     if (this.konteiners) {
-      this.divProgress.innerHTML = "Progress: " + this._progress;
+      // Ņemam progresa bildītes no Wikipedia lapas
+      var progresaBildes = [
+        "https://upload.wikimedia.org/wikipedia/commons/8/8b/Hangman-0.png",
+        "https://upload.wikimedia.org/wikipedia/commons/3/30/Hangman-1.png",
+        "https://upload.wikimedia.org/wikipedia/commons/7/70/Hangman-2.png",
+        "https://upload.wikimedia.org/wikipedia/commons/9/97/Hangman-3.png",
+        "https://upload.wikimedia.org/wikipedia/commons/2/27/Hangman-4.png",
+        "https://upload.wikimedia.org/wikipedia/commons/6/6b/Hangman-5.png",
+        "https://upload.wikimedia.org/wikipedia/commons/d/d6/Hangman-6.png"
+      ];
+      if (limenis >= 0 && limenis < progresaBildes.length) {
+        if (!this.imgProgresaBilde) {
+            // Pievienojam <img> elementu, kas attēlos bildītes
+            // Piezīme: pirmo reizi, kad uzstādīs jaunu līmeni, bildīte ielādēsies tikai tad. Tā nav optimāla lietotāja pieredze, tāpēc vēlams bildītes ielādēt pārlūkprogrammas atmiņā jau laicīgi.
+            this.imgProgresaBilde = document.createElement("img");
+            this.divProgress.appendChild(this.imgProgresaBilde);
+          }  
+        this.imgProgresaBilde.setAttribute("src", progresaBildes[limenis]);
+      }
     }
     if (this._progress == 6) {
       this.beigas(false);
