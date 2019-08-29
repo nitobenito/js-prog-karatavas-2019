@@ -34,6 +34,24 @@ class Karatavas {
     delete this.konteiners;
     this.statuss = Karatavas.STATUSS_NOVAKTS;
   }
+  jaunaSpele() {
+    console.log("Sākam jaunu spēli!");
+  }
+  jaunsProgress(limenis) {
+    console.log("Jauns progress:", limenis);
+  }
+  jaunsUzdevums() {
+    console.log("Jauns uzdevums!");
+  }
+  atjaunotRebusu() {
+    console.log("Atjaunojam rebusu");
+  }
+  minBurtu(burts) {
+    console.log("Minam burtu:", burts);
+  }
+  beigas(uzvara) {
+    console.log("Spēles beigas!", uzvara ? " Uzvarējām" : "Zaudējām");
+  }
 }
 
 // Statiskās propertijas
