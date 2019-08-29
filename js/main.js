@@ -11,7 +11,14 @@ class Karatavas {
 
       this.divRikjosla = document.createElement("div");
       this.divRikjosla.setAttribute("class", "rikjosla");
-      this.divRikjosla.innerHTML = "Pogas";
+      let btnJaunaSpele = document.createElement("button");
+      btnJaunaSpele.innerHTML = "Jauna spēle";
+      btnJaunaSpele.onclick = (evt) => {
+          //console.log(evt);
+          this.jaunaSpele();
+      }
+      this.divRikjosla.appendChild(btnJaunaSpele);
+
       this.konteiners.appendChild(this.divRikjosla);
 
       this.divUzdevums = document.createElement("div");
@@ -36,9 +43,10 @@ class Karatavas {
   }
   jaunaSpele() {
     console.log("Sākam jaunu spēli!");
-    this.statuss = Karatavas.STATUSS_JAUNS;
-    this.jaunsProgress(0);
+    this.statuss = Karatavas.STATUSS_SPELE;
+    //console.log(this);
     this.progress = 0;
+    this.minetieBurti = ""; // Burti, kurus lietotājs ir spiedis
     this.jaunsUzdevums();
     this.atjaunotRebusu();
     console.log("Vēl ir jāsaliek burtu pogas!");
@@ -48,6 +56,9 @@ class Karatavas {
     console.log("Jauns progress:", this._progress);
     if (this.konteiners) {
       this.divProgress.innerHTML = "Progress: " + this._progress;
+    }
+    if (this._progress == 6) {
+      this.beigas(false);
     }
   }
   get progress() {
@@ -60,10 +71,37 @@ class Karatavas {
   }
   atjaunotRebusu() {
     console.log("Atjaunojam rebusu");
+    let rebuss = "";
+    let uzminets = true;
+    for (var burtaId = 0; burtaId < this.uzdevums.length; burtaId++) {
+      let burts = this.uzdevums.charAt(burtaId);
+      if (this.minetieBurti.indexOf(burts) >= 0) {
+        rebuss += burts;
+      } else {
+        rebuss += "_";
+        uzminets = false;
+      }
+    }
+    if (!this.divUzdevums) return uzminets;
+    this.divUzdevums.innerHTML = rebuss;
+    return uzminets;
   }
   minBurtu(burts) {
+    if (this.statuss != Karatavas.STATUSS_SPELE) return;
     burts = burts.toUpperCase().charAt(0);
     console.log("Minam burtu:", burts);
+    if (this.minetieBurti.indexOf(burts) >= 0) return; // Burts jau agrāk minēts
+    this.minetieBurti += burts;
+    console.log("Minetie burti:", this.minetieBurti);
+    if (this.uzdevums.indexOf(burts) >= 0) {
+      console.log("Pareizs burts:", burts);
+      if (this.atjaunotRebusu()) {
+        this.beigas(true);
+      }
+    } else {
+      console.log("Nepareizs burts:", burts);
+      this.progress++;
+    }
   }
   beigas(uzvara) {
     if (uzvara) {
@@ -71,6 +109,9 @@ class Karatavas {
       console.log("Uzvara!");
     } else {
       this.statuss = Karatavas.STATUSS_SAGRAVE;
+      if (this.konteiners) {
+        this.divUzdevums.innerHTML = this.uzdevums;
+      }
       console.log("Sagrāve!");
     }
   }
