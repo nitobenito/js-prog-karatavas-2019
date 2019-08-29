@@ -2,11 +2,8 @@ class Karatavas {
   constructor(id) {
     this.konteiners = document.getElementById(id);
     if (this.konteiners) {
-      this.konteiners.innerHTML = "Te būs spēle";
-
       this.divProgress = document.createElement("div");
       this.divProgress.setAttribute("class", "progress");
-      this.divProgress.innerHTML = "Progress";
       this.konteiners.appendChild(this.divProgress);
 
       this.divRikjosla = document.createElement("div");
@@ -23,12 +20,10 @@ class Karatavas {
 
       this.divUzdevums = document.createElement("div");
       this.divUzdevums.setAttribute("class", "uzdevums");
-      this.divUzdevums.innerHTML = "Uzdevums";
       this.konteiners.appendChild(this.divUzdevums);
 
       this.divBurti = document.createElement("div");
       this.divBurti.setAttribute("class", "burti");
-      this.divBurti.innerHTML = "Burti";
       this.konteiners.appendChild(this.divBurti);
     }
     this.statuss = Karatavas.STATUSS_NEINICIALIZETS;
@@ -50,15 +45,19 @@ class Karatavas {
     this.jaunsUzdevums();
     this.atjaunotRebusu();
     // Atjaunojam burtu pogas!
-    this.divBurti.innerHTML = "";
-    const alfabets = "AĀBCČDEĒFGĢHIĪJKĶLĻMNŅOPRSŠTUŪVZŽ";
-    for (let burtaId = 0; burtaId < alfabets.length; burtaId++) {
-      let burts = alfabets[burtaId];
-      let burtaPoga = document.createElement("button");
-      burtaPoga.setAttribute("class", "burts neaiztikts");
-      burtaPoga.innerHTML = burts;
-      burtaPoga.onclick = (evt) => this.minBurtu(burts, burtaPoga);
-      this.divBurti.appendChild(burtaPoga);
+    if (this.konteiners) {
+      this.divBurti.innerHTML = "";
+      const alfabets = "AĀBCČDEĒFGĢHIĪJKĶLĻMNŅOPRSŠTUŪVZŽ";
+      for (let burtaId = 0; burtaId < alfabets.length; burtaId++) {
+        let burts = alfabets[burtaId];
+        let burtaPoga = document.createElement("button");
+        burtaPoga.setAttribute("class", "burts neaiztikts");
+        burtaPoga.innerHTML = burts;
+        burtaPoga.onclick = (evt) => this.minBurtu(burts, burtaPoga);
+        this.divBurti.appendChild(burtaPoga);
+      }
+      this.divUzdevums.style.display = "block"; // Padaram uzdevuma logu redzamu
+      this.divProgress.style.display = "block"; // Padaram progresa logu redzamu
     }
   }
   set progress(limenis) {
@@ -76,6 +75,7 @@ class Karatavas {
   }
   jaunsUzdevums() {
     this.uzdevums = "UZDEVUMS";
+    this.divUzdevums.setAttribute("class", "uzdevums");
     console.log("Jauns uzdevums: ", this.uzdevums);
     return this.uzdevums;
   }
@@ -120,11 +120,13 @@ class Karatavas {
   beigas(uzvara) {
     if (uzvara) {
       this.statuss = Karatavas.STATUSS_UZVARA;
+      this.divUzdevums.setAttribute("class", "uzdevums pareizi");
       console.log("Uzvara!");
     } else {
       this.statuss = Karatavas.STATUSS_SAGRAVE;
       if (this.konteiners) {
         this.divUzdevums.innerHTML = this.uzdevums;
+        this.divUzdevums.setAttribute("class", "uzdevums nepareizi");
       }
       console.log("Sagrāve!");
     }

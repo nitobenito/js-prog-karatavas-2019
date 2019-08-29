@@ -9,6 +9,13 @@ body {
   border: 10px solid #88b; 
 }
 
+#konteiners div.progress {
+  margin: 0 auto;
+  width: 300px;
+  font-size: 50pt;
+  display: none;
+}
+
 #konteiners div.rikjosla {
   /* div elementi ar klasi "rikjosla", kas ir iekš elementa ar id=konteiners */
   margin: 10pt auto;
@@ -30,6 +37,7 @@ body {
   font-size: 50pt;
   font-weight: bold;
   letter-spacing: 8pt;
+  display: none;
 }
 
 #konteiners div.burti button {
