@@ -9,8 +9,50 @@ body {
   border: 10px solid #88b; 
 }
 
-#konteiners div {
-  /* visi div elementi, kas ir iekš elementa ar id=konteiners */
-  background-color: #ddd;
-  border: 10px solid #b88; 
+#konteiners div.rikjosla {
+  /* div elementi ar klasi "rikjosla", kas ir iekš elementa ar id=konteiners */
+  margin: 10pt auto;
+  text-align: center;
+}
+
+#konteiners div.rikjosla button {
+  /* visi button elementi, kas ir iekš elementa div ar klasi "rikjosla", kas savukārt ir iekš elementa ar id=konteiners */
+  width: 300px;
+  height:100px;
+  font-size: 30pt;
+}
+
+#konteiners div.uzdevums {
+  /* visi div elementi ar klasi "uzdevumms", kas ir iekš elementa ar id=konteiners */
+  margin: 20px;
+  padding: 20px;
+  text-align: center;
+  font-size: 50pt;
+  font-weight: bold;
+  letter-spacing: 8pt;
+}
+
+#konteiners div.burti button {
+  /* visi button elementi, kas ir iekš div elementa ar klasi "burti", kas savukārt ir iekš elementa ar id=konteiners */
+  width: 80px;
+  height: 80px;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 50pt;
+  font-weight: bold;
+}
+
+#konteiners div.burti button.neaiztikts {
+  /* visi button elementi ar klasi "neaiztikts", kas ir iekš div elementa ar klasi "burti", kas savukārt ir iekš elementa ar id=konteiners */
+  background-color: #bbb;
+}
+
+#konteiners .pareizi {
+  /* visi elementi ar klasi "pareizi", kas ir iekš elementa (nav būtiski, cik "dziļā" līmenī) ar id=konteiners. */
+  background-color: #8f8;
+}
+
+#konteiners .nepareizi {
+  /* visi elementi ar klasi "nepareizi", kas ir iekš elementa (nav būtiski, cik "dziļā" līmenī) ar id=konteiners. */
+  background-color: #f88;
 }

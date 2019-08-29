@@ -49,7 +49,17 @@ class Karatavas {
     this.minetieBurti = ""; // Burti, kurus lietotājs ir spiedis
     this.jaunsUzdevums();
     this.atjaunotRebusu();
-    console.log("Vēl ir jāsaliek burtu pogas!");
+    // Atjaunojam burtu pogas!
+    this.divBurti.innerHTML = "";
+    const alfabets = "AĀBCČDEĒFGĢHIĪJKĶLĻMNŅOPRSŠTUŪVZŽ";
+    for (let burtaId = 0; burtaId < alfabets.length; burtaId++) {
+      let burts = alfabets[burtaId];
+      let burtaPoga = document.createElement("button");
+      burtaPoga.setAttribute("class", "burts neaiztikts");
+      burtaPoga.innerHTML = burts;
+      burtaPoga.onclick = (evt) => this.minBurtu(burts, burtaPoga);
+      this.divBurti.appendChild(burtaPoga);
+    }
   }
   set progress(limenis) {
     this._progress = limenis;
@@ -86,7 +96,7 @@ class Karatavas {
     this.divUzdevums.innerHTML = rebuss;
     return uzminets;
   }
-  minBurtu(burts) {
+  minBurtu(burts, burtaPoga) {
     if (this.statuss != Karatavas.STATUSS_SPELE) return;
     burts = burts.toUpperCase().charAt(0);
     console.log("Minam burtu:", burts);
@@ -95,11 +105,15 @@ class Karatavas {
     console.log("Minetie burti:", this.minetieBurti);
     if (this.uzdevums.indexOf(burts) >= 0) {
       console.log("Pareizs burts:", burts);
+      if (burtaPoga) {
+        burtaPoga.setAttribute("class", "burts pareizi");
+      }
       if (this.atjaunotRebusu()) {
         this.beigas(true);
       }
     } else {
       console.log("Nepareizs burts:", burts);
+      burtaPoga.setAttribute("class", "burts nepareizi");
       this.progress++;
     }
   }
