@@ -5,8 +5,15 @@
   <title>Spēle</title>
   <link rel="stylesheet" href="css/styles.css">
   <script type="text/javascript" charset="UTF-8" src="js/main.js"></script>
+  <script type="text/javascript" charset="UTF-8">
+    var k;
+    window.onload = () => {
+      k = new Karatavas("konteiners");
+    }
+  </script>
 </head>
 <body>
+  <h1>Karātavas</h1>
   <div id="konteiners"></div>
 </body>
 </html>
