@@ -92,7 +92,9 @@ class Karatavas {
     return this._progress;
   }
   jaunsUzdevums() {
-    this.divUzdevums.setAttribute("class", "uzdevums");
+    if (this.konteiners) {
+      this.divUzdevums.setAttribute("class", "uzdevums");    
+    }
     if (!varduSaraksts) {
         console.error("Vārdu saraksts nav ielādēts!");
         this.uzdevums = "UZDEVUMS";
@@ -136,14 +138,18 @@ class Karatavas {
       }
     } else {
       console.log("Nepareizs burts:", burts);
-      burtaPoga.setAttribute("class", "burts nepareizi");
+      if (burtaPoga) {
+        burtaPoga.setAttribute("class", "burts nepareizi");
+      }
       this.progress++;
     }
   }
   beigas(uzvara) {
     if (uzvara) {
       this.statuss = Karatavas.STATUSS_UZVARA;
-      this.divUzdevums.setAttribute("class", "uzdevums pareizi");
+      if (this.konteiners) {
+        this.divUzdevums.setAttribute("class", "uzdevums pareizi");
+      }
       console.log("Uzvara!");
     } else {
       this.statuss = Karatavas.STATUSS_SAGRAVE;
