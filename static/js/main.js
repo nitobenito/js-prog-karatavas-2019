@@ -42,8 +42,6 @@ class Karatavas {
     //console.log(this);
     this.progress = 0;
     this.minetieBurti = ""; // Burti, kurus lietotājs ir spiedis
-    this.jaunsUzdevums();
-    this.atjaunotRebusu();
     // Atjaunojam burtu pogas!
     if (this.konteiners) {
       this.divBurti.innerHTML = "";
@@ -59,6 +57,7 @@ class Karatavas {
       this.divUzdevums.style.display = "block"; // Padaram uzdevuma logu redzamu
       this.divProgress.style.display = "block"; // Padaram progresa logu redzamu
     }
+    this.jaunsUzdevums(() => this.atjaunotRebusu());
   }
   set progress(limenis) {
     this._progress = limenis;
@@ -91,18 +90,17 @@ class Karatavas {
   get progress() {
     return this._progress;
   }
-  jaunsUzdevums() {
+  jaunsUzdevums(fnKadUzdevumsSanemts) {
     if (this.konteiners) {
       this.divUzdevums.setAttribute("class", "uzdevums");    
     }
-    if (!varduSaraksts) {
-        console.error("Vārdu saraksts nav ielādēts!");
-        this.uzdevums = "UZDEVUMS";
-        return this.uzdevums;
-      }
-    this.uzdevums = varduSaraksts[Math.floor(Math.random() * varduSaraksts.length)];
-    console.log("Jauns uzdevums: ", this.uzdevums);
-    return this.uzdevums;
+    // Asinhronā izsaukuma pārbaude
+    this.uzdevums = null; 
+    setTimeout(() => {
+      this.uzdevums = "UZDEVUMS";
+      console.log("Jauns uzdevums: ", this.uzdevums);
+      fnKadUzdevumsSanemts();
+    }, 3000);
   }
   atjaunotRebusu() {
     console.log("Atjaunojam rebusu");
