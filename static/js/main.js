@@ -95,12 +95,14 @@ class Karatavas {
       this.divUzdevums.setAttribute("class", "uzdevums");    
     }
     // Asinhronā izsaukuma pārbaude
-    this.uzdevums = null; 
-    setTimeout(() => {
-      this.uzdevums = "UZDEVUMS";
+    this.uzdevums = null;
+    fetch(new Request('/api/uzdevums'))
+    .then((resp) => resp.json())
+    .then((data) => {
+      this.uzdevums = data.uzdevums;
       console.log("Jauns uzdevums: ", this.uzdevums);
       fnKadUzdevumsSanemts();
-    }, 3000);
+    });
   }
   atjaunotRebusu() {
     console.log("Atjaunojam rebusu");
